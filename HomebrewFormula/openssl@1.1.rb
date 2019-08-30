@@ -18,12 +18,12 @@ class OpensslAT11 < Formula
   # be obvious to everyone, so explicitly state it for now to
   # help debug inevitable breakage.
   def configure_args; %W[
-    -g
     --prefix=#{prefix}
     --openssldir=#{openssldir}
     no-ssl3
     no-ssl3-method
     no-zlib
+    -g
   ]
   end
 
@@ -43,11 +43,10 @@ class OpensslAT11 < Formula
     ENV.deparallelize
     system "perl", "./Configure", *(configure_args + arch_args)
     system "make"
-    system "dsymutil", "libcrypto.3.dylib", "-o", "libcrypto.3.dylib.dSYM"
-    system "dsymutil", "libssl.3.dylib", "-o", "libssl.3.dylib.dSYM"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
-    system "cp", "-R", "libcrypto.3.dylib.dSYM", "libssl.3.dylib.dSYM", "#{prefix}/lib"
+    system "dsymutil", "#{prefix}/lib/libcrypto.3.dylib", "-o", "#{prefix}/lib/libcrypto.3.dylib.dSYM"
+    system "dsymutil", "#{prefix}/lib/libssl.3.dylib", "-o", "#{prefix}/lib/libssl.3.dylib.dSYM"
   end
 
   def openssldir
