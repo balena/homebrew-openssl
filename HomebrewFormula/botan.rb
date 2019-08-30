@@ -1,5 +1,5 @@
 class Botan < Formula
-  desc "Cryptographic algorithms and formats library in C++"
+  desc "Cryptographic algorithms and formats library in C++ (with symbols)"
   homepage "https://botan.randombit.net/"
   url "https://botan.randombit.net/releases/Botan-2.11.0.tar.xz"
   sha256 "f7874da2aeb8c018fd77df40b2137879bf90b66f5589490c991e83fb3e8094be"
