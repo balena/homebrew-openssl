@@ -27,6 +27,19 @@ class OpensslAT11 < Formula
   ]
   end
 
+  def dsyms_rule; <<-END
+install_dsyms:
+	@$(ECHO) "*** Installing dSYMs"
+	@set -e; for s in dummy $(INSTALL_SHLIBS); do \
+		if [ "$$s" = "dummy" ]; then continue; fi; \
+		fn=`basename $$s`; \
+		: ; \
+		$(ECHO) "dsymutil $$s -> $(DESTDIR)$(libdir)/$$fn"; \
+		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \
+		: ; \
+	done
+END
+
   def install
     # This could interfere with how we expect OpenSSL to build.
     ENV.delete("OPENSSL_LOCAL_CONFIG_DIR")
@@ -42,11 +55,10 @@ class OpensslAT11 < Formula
 
     ENV.deparallelize
     system "perl", "./Configure", *(configure_args + arch_args)
+    inreplace "Makefile", "^install: install_sw install_ssldirs install_docs", "install: install_sw install_ssldirs install_docs install_dsyms\n\n#{dsyms_rule}"
     system "make"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
-    system "dsymutil", "#{prefix}/lib/libcrypto.3.dylib", "-o", "#{prefix}/lib/libcrypto.3.dylib.dSYM"
-    system "dsymutil", "#{prefix}/lib/libssl.3.dylib", "-o", "#{prefix}/lib/libssl.3.dylib.dSYM"
   end
 
   def openssldir
