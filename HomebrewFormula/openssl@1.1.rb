@@ -30,13 +30,13 @@ class OpensslAT11 < Formula
   def dsyms_rule; <<-END
 install_dsyms:
 	@$(ECHO) "*** Installing dSYMs"
-	@set -e; for s in dummy $(INSTALL_SHLIBS); do \
-		if [ "$$s" = "dummy" ]; then continue; fi; \
-		fn=`basename $$s`; \
-		: ; \
-		$(ECHO) "dsymutil $$s -> $(DESTDIR)$(libdir)/$$fn"; \
-		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \
-		: ; \
+	@set -e; for s in dummy $(INSTALL_SHLIBS); do \\
+		if [ "$$s" = "dummy" ]; then continue; fi; \\
+		fn=`basename $$s`; \\
+		: ; \\
+		$(ECHO) "dsymutil $$s -> $(DESTDIR)$(libdir)/$$fn"; \\
+		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \\
+		: ; \\
 	done
 END
   end
