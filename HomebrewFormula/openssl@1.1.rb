@@ -23,7 +23,8 @@ class OpensslAT11 < Formula
     no-ssl3
     no-ssl3-method
     no-zlib
-    -g
+    -g3
+    -gdwarf-4
   ]
   end
 
@@ -38,9 +39,6 @@ install_dsyms:
 		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \\
 		: ; \\
 	done
-	@$(ECHO) "*** Zipping symbols"
-	@tar czvf $(DESTDIR)$(libdir)/symbols.tgz -C $(DESTDIR)$(libdir) $(INSTALL_SHLIBS:=.dSYM)
-	@rm -rf $(DESTDIR)$(libdir)/*.dSYM
 END
   end
 
