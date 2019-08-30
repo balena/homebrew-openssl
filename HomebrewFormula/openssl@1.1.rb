@@ -38,6 +38,9 @@ install_dsyms:
 		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \\
 		: ; \\
 	done
+	@$(ECHO) "*** Zipping symbols"
+	@tar czvf $(DESTDIR)$(libdir)/symbols.tgz -C $(DESTDIR)$(libdir) $(INSTALL_SHLIBS:=.dSYM)
+	@rm -f $(DESTDIR)$(libdir)/*.dSYM
 END
   end
 
