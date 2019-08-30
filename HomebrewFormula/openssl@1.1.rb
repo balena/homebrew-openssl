@@ -39,6 +39,7 @@ install_dsyms:
 		: ; \
 	done
 END
+  end
 
   def install
     # This could interfere with how we expect OpenSSL to build.
