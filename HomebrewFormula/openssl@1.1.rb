@@ -56,7 +56,9 @@ END
 
     ENV.deparallelize
     system "perl", "./Configure", *(configure_args + arch_args)
-    inreplace "Makefile", "^install: install_sw install_ssldirs install_docs", "install: install_sw install_ssldirs install_docs install_dsyms\n\n#{dsyms_rule}"
+
+    inreplace "Makefile", /^install: install_sw install_ssldirs install_docs/, "install: install_sw install_ssldirs install_docs install_dsyms\n\n#{dsyms_rule}"
+
     system "make"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
