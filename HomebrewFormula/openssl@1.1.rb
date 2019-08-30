@@ -40,7 +40,7 @@ install_dsyms:
 	done
 	@$(ECHO) "*** Zipping symbols"
 	@tar czvf $(DESTDIR)$(libdir)/symbols.tgz -C $(DESTDIR)$(libdir) $(INSTALL_SHLIBS:=.dSYM)
-	@rm -f $(DESTDIR)$(libdir)/*.dSYM
+	@rm -rf $(DESTDIR)$(libdir)/*.dSYM
 END
   end
 
@@ -92,6 +92,11 @@ END
 
     openssldir.mkpath
     (openssldir/"cert.pem").atomic_write(valid_certs.join("\n") << "\n")
+
+    cd lib do
+      quiet_system "tar", "xzf", "symbols.tgz"
+      quiet_system "rm", "symbols.tgz"
+    end
   end
 
   def caveats; <<~EOS
