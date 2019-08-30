@@ -92,11 +92,6 @@ END
 
     openssldir.mkpath
     (openssldir/"cert.pem").atomic_write(valid_certs.join("\n") << "\n")
-
-    cd lib do
-      quiet_system "tar", "xzf", "symbols.tgz"
-      quiet_system "rm", "symbols.tgz"
-    end
   end
 
   def caveats; <<~EOS
