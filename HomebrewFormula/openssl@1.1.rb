@@ -43,8 +43,11 @@ class OpensslAT11 < Formula
     ENV.deparallelize
     system "perl", "./Configure", *(configure_args + arch_args)
     system "make"
+    system "dsymutil", "libcrypto.3.dylib", "-o", "libcrypto.3.dylib.dSYM"
+    system "dsymutil", "libssl.3.dylib", "-o", "libssl.3.dylib.dSYM"
     system "make", "test"
     system "make", "install", "MANDIR=#{man}", "MANSUFFIX=ssl"
+    system "cp", "-R", "libcrypto.3.dylib.dSYM", "libssl.3.dylib.dSYM", "#{prefix}/lib"
   end
 
   def openssldir
