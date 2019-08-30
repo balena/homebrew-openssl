@@ -25,8 +25,8 @@ class Botan < Formula
       --with-zlib
       --with-bzip2
       --extra-cxxflags=-g
-      --with-external-includedir=#{Formula["balena/with-dsym/openssl"].opt_include}
-      --with-external-libdir=#{Formula["balena/with-dsym/openssl"].opt_lib}
+      --with-external-includedir=#{Formula["balena/with-dsym/openssl@1.1"].opt_include}
+      --with-external-libdir=#{Formula["balena/with-dsym/openssl@1.1"].opt_lib}
     ]
 
     system "./configure.py", *args
