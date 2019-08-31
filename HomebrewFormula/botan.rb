@@ -30,6 +30,7 @@ class Botan < Formula
 
     system "./configure.py", *args
     system "make", "install"
+    system "dsymutil", "#{lib}/libbotan-2.11.11.0.dylib", "-o", "#{lib}/libbotan-2.11.11.0.dylib.dSYM"
   end
 
   test do
