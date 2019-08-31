@@ -37,7 +37,7 @@ install_dsyms:
 		: ; \\
 		$(ECHO) "dsymutil $$s -> $(DESTDIR)$(libdir)/$$fn"; \\
 		dsymutil $(DESTDIR)$(libdir)/$$fn -o $(DESTDIR)$(libdir)/$$fn.dSYM; \\
-    strip -x $(DESTDIR)$(libdir)/$$fn; \\
+		strip -x $(DESTDIR)$(libdir)/$$fn; \\
 		: ; \\
 	done
 END
