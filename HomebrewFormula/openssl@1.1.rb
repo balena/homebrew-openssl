@@ -24,7 +24,7 @@ class OpensslAT11 < Formula
     no-ssl3-method
     no-zlib
     -g3
-    -gdwarf-4
+    -gdwarf
   ]
   end
 
