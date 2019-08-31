@@ -24,7 +24,8 @@ class Botan < Formula
       --with-openssl
       --with-zlib
       --with-bzip2
-      --extra-cxxflags=-g
+      --extra-cxxflags=-g3
+      --extra-cxxflags=-gdwarf-4
       --with-external-includedir=#{Formula["balena/with-dsym/openssl@1.1"].opt_include}
       --with-external-libdir=#{Formula["balena/with-dsym/openssl@1.1"].opt_lib}
     ]
