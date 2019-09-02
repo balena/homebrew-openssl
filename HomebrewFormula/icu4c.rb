@@ -28,7 +28,7 @@ class Icu4c < Formula
       system "make"
       system "make", "install"
 
-      "post_install.sh".write <<-EOS
+      (buildpath/"post_install.sh").write <<-EOS
         set -e
         for lib in #{lib}/lib*.dylib do
           if [ -L ${lib} ]; then continue; fi
@@ -36,7 +36,7 @@ class Icu4c < Formula
           strip -x ${lib}
         done
       EOS
-      system "bash", "./post_install.sh"
+      system "bash", buildpath/"post_install.sh"
     end
   end
 
