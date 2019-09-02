@@ -18,16 +18,26 @@ class Icu4c < Formula
       --disable-tests
       --enable-static
       --with-library-bits=64
-      CFLAGS=-g
-      CPPFLAGS=-g
     ]
 
-    ENV.prepend "CFLAGS", "-I#{MacOS.sdk_path}/System/Library/Frameworks/Tcl.framework/Versions/8.5/Headers/tcl-private"
+    ENV.prepend "CFLAGS", "-g -gdwarf"
+    ENV.prepend "CXXFLAGS", "-g -gdwarf"
 
     cd "source" do
       system "./configure", *args
       system "make"
       system "make", "install"
+
+      "post_install.sh".write <<-EOS
+        set -e; for lib in #{lib}/lib*.dylib do
+          if [ -L ${lib} ]; then continue; fi;
+          : ;
+          dsymutil ${lib} -o ${lib}.dSYM;
+          strip -x ${lib};
+          : ;
+        done
+      EOS
+      system "bash", "post_install.sh"
     end
   end
 
