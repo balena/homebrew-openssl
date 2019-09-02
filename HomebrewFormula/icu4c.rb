@@ -29,15 +29,14 @@ class Icu4c < Formula
       system "make", "install"
 
       "post_install.sh".write <<-EOS
-        set -e; for lib in #{lib}/lib*.dylib do
-          if [ -L ${lib} ]; then continue; fi;
-          : ;
-          dsymutil ${lib} -o ${lib}.dSYM;
-          strip -x ${lib};
-          : ;
+        set -e
+        for lib in #{lib}/lib*.dylib do
+          if [ -L ${lib} ]; then continue; fi
+          dsymutil ${lib} -o ${lib}.dSYM
+          strip -x ${lib}
         done
       EOS
-      system "bash", "post_install.sh"
+      system "bash", "./post_install.sh"
     end
   end
 
